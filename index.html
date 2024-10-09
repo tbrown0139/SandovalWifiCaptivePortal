@@ -30,7 +30,7 @@
             align-items: center;
             gap: 20px;
             width: 100%;
-            max-width: 500px;
+            max-width: 400px;
         }
 
         /* Main Card */
@@ -41,7 +41,7 @@
             width: 100%;
             padding: 40px;
             text-align: center;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .card:hover {
@@ -54,51 +54,21 @@
             width: 80px;
             height: 80px;
             margin: 0 auto 20px;
-            position: relative;
-        }
-
-        .checkmark-circle {
-            stroke-dasharray: 166;
-            stroke-dashoffset: 166;
-            stroke-width: 5;
-            stroke-miterlimit: 10;
-            stroke: #4caf50;
-            fill: none;
-            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-        }
-
-        .checkmark-check {
-            transform-origin: 50% 50%;
-            stroke-dasharray: 48;
-            stroke-dashoffset: 48;
-            stroke-width: 5;
-            stroke: #4caf50;
-            fill: none;
-            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.5s forwards;
-        }
-
-        @keyframes stroke {
-            100% {
-                stroke-dashoffset: 0;
-            }
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-bottom: 15px;
             color: #333;
-            letter-spacing: 1px;
             font-weight: bold;
         }
 
         p {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
+            font-size: 1rem;
             color: #555;
-            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
-        /* Clickable See Disclaimer text */
         .disclaimer-link {
             font-size: 0.9rem;
             color: #007bff;
@@ -112,9 +82,9 @@
             background-color: #f0f0f0;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 100%;
+            padding: 15px;
             text-align: center;
+            width: 100%;
             cursor: pointer;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -125,9 +95,8 @@
         }
 
         .recommend-card h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #333;
-            margin-bottom: 5px;
         }
 
         /* Footer styling */
@@ -150,8 +119,8 @@
 
         /* Responsive for mobile */
         @media (max-width: 768px) {
-            .card {
-                padding: 30px;
+            .card, .recommend-card {
+                padding: 20px;
             }
 
             h1 {
@@ -159,23 +128,37 @@
             }
 
             p {
-                font-size: 1rem;
-            }
-
-            .recommend-card {
-                max-width: 90%;
-            }
-
-            footer .footer-logo img {
-                width: 50px;
+                font-size: 0.95rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card" id="interactive-card">
-            <!-- Animated checkmark -->
+        <div class="card">
             <div class="checkmark">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                    <circle class="checkmark-circle" cx="26" cy="26" r="25
+                    <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" stroke="#4caf50" stroke-width="5"/>
+                    <path class="checkmark-check" fill="none" stroke="#4caf50" stroke-width="5" d="M14 27l8 8 16-16"/>
+                </svg>
+            </div>
+            <h1>You are now connected to the internet!</h1>
+            <p>Welcome! Enjoy your connection to the Knovon Guest Network.</p>
+            <p class="disclaimer-link">See disclaimer</p>
+        </div>
+
+        <!-- Recommend Apps Card -->
+        <a href="#" class="recommend-card">
+            <h3>Recommended Apps</h3>
+            <p>Discover apps to enhance your experience.</p>
+        </a>
+    </div>
+
+    <footer>
+        <p>Powered by Knovon Network</p>
+        <div class="footer-logo">
+            <img src="https://ok12static.oktacdn.com/fs/bco/1/fs0ieyg1efEWrp7oR5d7" alt="Knovon Logo">
+        </div>
+    </footer>
+</body>
+</html>
