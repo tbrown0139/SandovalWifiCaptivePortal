@@ -1,1 +1,363 @@
-!!!!!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connected to the Internet</title>
+    <style>
+        /* Reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0e0e0, #f7f7f7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Confetti styling */
+        .confetti {
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #ff0;
+            animation: fall 3s infinite;
+            border-radius: 50%;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Interactive card design */
+        .card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animated checkmark */
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .checkmark-circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 5;
+            stroke-miterlimit: 10;
+            stroke: #4caf50;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark-check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke-width: 5;
+            stroke: #4caf50;
+            fill: none;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.5s forwards;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #333;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Clickable See Disclaimer text */
+        .disclaimer-link {
+            font-size: 0.9rem;
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* Updated flat button styles */
+        .btn {
+            display: inline-block;
+            padding: 15px 25px;
+            margin: 10px;
+            background-color: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #004c99;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 10px rgba(0, 102, 204, 0.1);
+        }
+
+        /* Overlay for Terms of Service */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay-content {
+            background: white;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: center;
+            color: #333;
+        }
+
+        .overlay-content p {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .overlay-close {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* Footer styling */
+        footer {
+            position: absolute;
+            bottom: 10px;
+            text-align: center;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        footer .footer-logo img {
+            width: 60px;
+            opacity: 0.6;
+            filter: grayscale(100%);
+        }
+
+        /* Offline banner */
+        .offline-banner {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #ff6b6b;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            display: none;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            .card {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+
+            footer .footer-logo img {
+                width: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            p {
+                font-size: 0.95rem;
+            }
+
+            .disclaimer-link {
+                font-size: 0.85rem;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            footer .footer-logo img {
+                width: 45px;
+            }
+        }
+    </style>
+    <!-- Link to Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="offline-banner" id="offline-banner">
+        Oops! Looks like your connection is not stable.
+    </div>
+
+    <div class="container">
+        <div class="card" id="interactive-card">
+            <!-- Animated checkmark -->
+            <div class="checkmark">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark-check" fill="none" d="M14 27l8 8 16-16"/>
+                </svg>
+            </div>
+            <h1>Yay! You are now connected to the internet!</h1>
+            <p>Welcome! Enjoy your connection to the Knovon Guest Network. You can start browsing safely and securely.</p>
+            <a href="#" class="btn">Browse</a>
+            <a href="#" class="btn">Apps</a>
+            <p class="disclaimer-link" id="disclaimer-link">See disclaimer</p>
+        </div>
+    </div>
+
+    <!-- Terms of Service Overlay -->
+    <div class="overlay" id="terms-overlay">
+        <div class="overlay-content">
+            <h2>Terms of Service</h2>
+            <p>Your device and browser activity can be monitored during the network session.</p>
+            <p>Some content may be restricted, and inappropriate activity may result in your device being blocked. This network utilizes automated monitoring systems. All network traffic is tracked and analyzed for security purposes. By using this network, you agree to abide by our policies.</p>
+            <div class="overlay-close" id="close-overlay">Close</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Powered by Knovon Network</p>
+        <div class="footer-logo">
+            <img src="https://ok12static.oktacdn.com/fs/bco/1/fs0ieyg1efEWrp7oR5d7" alt="Knovon Logo">
+        </div>
+    </footer>
+
+    <script>
+        const confettiCount = 100;
+        for (let i = 0; i < confettiCount; i++) {
+            let confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(confetti);
+        }
+
+        // Interactive 3D effect on the card
+        const card = document.getElementById('interactive-card');
+        const container = document.querySelector('.container');
+
+        container.addEventListener('mousemove', (e) => {
+            let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+
+        // Monitor connection status
+        window.addEventListener('offline', function () {
+            document.getElementById('offline-banner').style.display = 'block';
+        });
+
+        window.addEventListener('online', function () {
+            document.getElementById('offline-banner').style.display = 'none';
+        });
+
+        // Overlay for terms of service
+        const disclaimerLink = document.getElementById('disclaimer-link');
+        const termsOverlay = document.getElementById('terms-overlay');
+        const closeOverlay = document.getElementById('close-overlay');
+
+        disclaimerLink.addEventListener('click', function () {
+            termsOverlay.style.display = 'flex';
+        });
+
+        closeOverlay.addEventListener('click', function () {
+            termsOverlay.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
