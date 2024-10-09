@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Apps - Knovon</title>
+    <style>
+        /* Reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0e0e0, #f7f7f7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .apps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 60px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        /* Ad Card Styling */
+        .ad-card {
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://via.placeholder.com/400x200') center/cover no-repeat;
+            color: #fff;
+            padding: 40px 20px;
+        }
+
+        .ad-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff0000;
+            color: #fff;
+            padding: 3px 7px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            opacity: 0.8;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        footer .footer-logo img {
+            width: 60px;
+            opacity: 0.6;
+            filter: grayscale(100%);
+        }
+
+        /* Responsive for mobile */
+        @media (max-width: 768px) {
+            .apps-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Our Apps</h1>
+    <div class="apps-container">
+        <!-- Canva Card -->
+        <a href="https://canva.com" class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Canva_Logo.png/800px-Canva_Logo.png" alt="Canva Logo">
+            <h3>Canva</h3>
+            <p>Create stunning designs with Canva.</p>
+        </a>
+
+        <!-- Gmail Card -->
+        <a href="https://mail.google.com" class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Gmail_Icon.png/800px-Gmail_Icon.png" alt="Gmail Logo">
+            <h3>Gmail</h3>
+            <p>Stay connected with your emails.</p>
+        </a>
+
+        <!-- Knovon Card -->
+        <a href="https://knovon.org" class="card">
+            <img src="https://ok12static.oktacdn.com/fs/bco/1/fs0ieyg1efEWrp7oR5d7" alt="Knovon Logo">
+            <h3>Knovon</h3>
+            <p>Explore our innovative solutions at Knovon.</p>
+        </a>
+
+        <!-- Google Search Card -->
+        <a href="https://google.com" class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/512px-Google_2015_logo.svg.png" alt="Google Logo">
+            <h3>Google Search</h3>
+            <p>Find what you're looking for on the web.</p>
+        </a>
+
+        <!-- YouTube Card -->
+        <a href="https://youtube.com" class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/YouTube_icon_%282013-2017%29.png/800px-YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
+            <h3>YouTube</h3>
+            <p>Watch and share videos on YouTube.</p>
+        </a>
+
+        <!-- Disney Plus Card -->
+        <a href="https://disneyplus.com" class="card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney Plus Logo">
+            <h3>Disney Plus</h3>
+            <p>Stream your favorite Disney movies and shows.</p>
+        </a>
+
+        <!-- ChatGPT Card -->
+        <a href="https://chatgpt.com" class="card">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/512px-ChatGPT_logo.svg.png" alt="ChatGPT Logo">
+            <h3>ChatGPT</h3>
+            <p>Chat with AI and get instant answers.</p>
+        </a>
+
+        <!-- Special Ad Card -->
+        <a href="#" class="card ad-card">
+            <div class="ad-badge">Ad</div>
+            <h3>Romance in Roblox</h3>
+            <p>Check out our new book Romance in Roblox by Tanner Brown now available for purchase.</p>
+        </a>
+    </div>
+
+    <footer>
+        <p>Powered by Knovon Network</p>
+        <div class="footer-logo">
+            <img src="https://ok12static.oktacdn.com/fs/bco/1/fs0ieyg1efEWrp7oR5d7" alt="Knovon Logo">
+        </div>
+    </footer>
+</body>
+</html>
