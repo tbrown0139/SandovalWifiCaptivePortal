@@ -18,7 +18,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             padding: 20px;
             position: relative;
             overflow: hidden;
@@ -54,6 +54,19 @@
             width: 80px;
             height: 80px;
             margin: 0 auto 20px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+            }
+            70% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(0.95);
+            }
         }
 
         h1 {
@@ -82,7 +95,7 @@
             background-color: #f0f0f0;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 15px;
+            padding: 20px;
             text-align: center;
             width: 100%;
             cursor: pointer;
@@ -95,8 +108,88 @@
         }
 
         .recommend-card h3 {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #333;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background-color: #ff0;
+            animation: fall 3s infinite;
+            border-radius: 50%;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .warning {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        .modal-close {
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* Offline Banner */
+        .offline-banner {
+            background: #ff6b6b;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            top: 10px;
+            width: calc(100% - 40px);
+            max-width: 400px;
+            border-radius: 10px;
+            display: none;
         }
 
         /* Footer styling */
@@ -104,6 +197,8 @@
             text-align: center;
             margin-top: 20px;
             width: 100%;
+            position: absolute;
+            bottom: 10px;
         }
 
         footer p {
@@ -117,10 +212,10 @@
             filter: grayscale(100%);
         }
 
-        /* Responsive for mobile */
+        /* Responsive design */
         @media (max-width: 768px) {
-            .card, .recommend-card {
-                padding: 20px;
+            .container {
+                max-width: 90%;
             }
 
             h1 {
@@ -130,10 +225,18 @@
             p {
                 font-size: 0.95rem;
             }
+
+            .modal-content {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="offline-banner" id="offline-banner">
+        Your internet looks unstable. Try running a <a href="https://www.speedtest.net" target="_blank" style="color: yellow; text-decoration: underline;">speed test</a>.
+    </div>
+
     <div class="container">
         <div class="card">
             <div class="checkmark">
@@ -142,15 +245,13 @@
                     <path class="checkmark-check" fill="none" stroke="#4caf50" stroke-width="5" d="M14 27l8 8 16-16"/>
                 </svg>
             </div>
-            <h1>You are now connected to the internet!</h1>
-            <p>Welcome! Enjoy your connection to the Knovon Guest Network.</p>
+            <h1>Congratulations!</h1>
+            <p>Enjoy your secure connection to the Knovon Guest Network.</p>
             <p class="disclaimer-link">See disclaimer</p>
         </div>
 
-        <!-- Recommend Apps Card -->
         <a href="#" class="recommend-card">
-            <h3>Recommended Apps</h3>
-            <p>Discover apps to enhance your experience.</p>
+            <h3>View Recommended Apps</h3>
         </a>
     </div>
 
@@ -160,5 +261,50 @@
             <img src="https://ok12static.oktacdn.com/fs/bco/1/fs0ieyg1efEWrp7oR5d7" alt="Knovon Logo">
         </div>
     </footer>
+
+    <!-- Modal for Disclaimer -->
+    <div class="modal" id="terms-modal">
+        <div class="modal-content">
+            <h2>Terms and Conditions</h2>
+            <p class="warning">This network is monitored and analyzed by AI. Behavior contrary to the policies will be blocked automatically and notifications will be sent to the network owner.</p>
+            <p>Use this network responsibly. Ensure you comply with our terms of service, respect other users, and avoid accessing inappropriate or harmful content.</p>
+            <button class="modal-close">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Confetti Effect
+        const confettiCount = 50;
+        for (let i = 0; i < confettiCount; i++) {
+            let confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(confetti);
+        }
+
+        // Modal behavior
+        const disclaimerLink = document.querySelector('.disclaimer-link');
+        const termsModal = document.getElementById('terms-modal');
+        const closeModal = document.querySelector('.modal-close');
+
+        disclaimerLink.addEventListener('click', () => {
+            termsModal.style.display = 'flex';
+        });
+
+        closeModal.addEventListener('click', () => {
+            termsModal.style.display = 'none';
+        });
+
+        // Monitor connection status
+        window.addEventListener('offline', function () {
+            document.getElementById('offline-banner').style.display = 'block';
+        });
+
+        window.addEventListener('online', function () {
+            document.getElementById('offline-banner').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
